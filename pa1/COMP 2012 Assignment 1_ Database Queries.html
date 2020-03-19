@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<!-- saved from url=(0065)https://course.cse.ust.hk/comp2012/assignments/assignment1/#table -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- ### Change assignment number ### -->
+  <title>COMP 2012 Assignment 1: Database Queries</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="./COMP 2012 Assignment 1_ Database Queries_files/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Prism syntax highlighter -->
+  <link href="./COMP 2012 Assignment 1_ Database Queries_files/prism.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="./COMP 2012 Assignment 1_ Database Queries_files/prettify.css">
+
+  <style>
+    .allsideborder {
+      border: solid 3px #555 !important;
+      box-shadow: 0 0 0 !important;
+    }
+
+    .allsideredborder {
+      border: solid 3px red !important;
+      box-shadow: 0 0 0 !important;
+    }
+
+    .accordion {
+      background-color: #eee;
+      color: #444;
+      cursor: pointer;
+      padding: 18px;
+      width: 100%;
+      text-align: left;
+      border: none;
+      outline: none;
+      transition: 0.4s;
+    }
+
+    /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+    .active,
+    .accordion:hover {
+      background-color: #ccc;
+    }
+
+    /* Style the accordion panel. Note: hidden by default */
+    .panel {
+      padding: 0 18px;
+      background-color: white;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.2s ease-out;
+    }
+
+    .accordion:after {
+      content: '\02795';
+      /* Unicode character for "plus" sign (+) */
+      font-size: 13px;
+      color: #777;
+      float: right;
+      margin-left: 5px;
+    }
+
+    .active:after {
+      content: "\2796";
+      /* Unicode character for "minus" sign (-) */
+    }
+
+    pre {
+      tab-size: 2;
+    }
+
+    table {
+      width: 100%;
+      display: inline-block;
+      overflow-x: auto;
+    }
+
+    table caption {
+      font-size: medium;
+    }
+
+    table thead th {
+      background-color: #ddd;
+    }
+
+    table th,
+    table td {
+      text-align: right;
+      padding: 3px 6px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #aaa #aaa;
+    }
+
+    table tr:nth-child(even) {
+      background-color: #eee;
+    }
+
+    img.limit {
+      max-width: 100%
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Page Content -->
+  <div class="container language-cpp">
+
+    <div class="row">
+
+      <!-- Entries Column -->
+      <div class="col-md-9">
+
+        <h2 class="my-4"><span style="color:darkblue">COMP 2012</span>
+          <small>Object-Oriented Programming and Data Structures</small>
+        </h2>
+
+        <!-- ### Change assignment number and title ### -->
+        <h3 class="my-4">Assignment 1
+		  <span style="color:indigo">Database Queries</span>
+        </h3>
+
+        <!-- Introduction section -->
+        <!-- ### Complete introduction section for the assignment ### -->
+        <div class="card mb-4">
+
+          <!-- ### Add an image representing the assignment content here ### -->
+          <!-- <div style="background: black; text-align: center">
+            <img class="card-img-top" src="images/titleimage.jpg" alt="Card image cap" style="width: 70%;"
+              title="https://www.scott.af.mil/News/Commentaries/Display/Article/767075/how-to-get-the-most-out-of-your-workout-routine/">
+          </div> -->
+          <div class="card-body" id="introduction">
+            <h3 class="card-title">Introduction</h3>
+            <p class="card-text">
+              Suppose we are given a table of courses that are offered in Spring Semester of 2020. You can find eight courses, each of them are represented as an <strong>entry</strong> in the table. There are four <strong>attributes</strong> in the table, Department, Course Code, Course Name and Credits. An attribute characterizes information about entries.
+
+            </p><table id="table1">
+              <thead>
+                <tr>
+                  <th>Department</th>
+                  <th>Course Code</th>
+                  <th>Course Name</th>
+                  <th>Credits</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>CSE</td>
+                  <td>COMP2012</td>
+                  <td>Object Oriented Programming and Data Structures</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>CSE</td>
+                  <td>COMP3021</td>
+                  <td>Java Programming</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>CSE</td>
+                  <td>COMP3711</td>
+                  <td>Design and Analysis of Algorithms</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>CSE</td>
+                  <td>COMP4511</td>
+                  <td>System and Kernel Programming in Linux</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>CSE</td>
+                  <td>COMP4641</td>
+                  <td>Social Information Network Analysis and Engineering</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>MATH</td>
+                  <td>MATH2343</td>
+                  <td>Discrete Structures</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>MATH</td>
+                  <td>MATH3033</td>
+                  <td>Real Analysis</td>
+                  <td>4</td>
+                </tr>
+                <tr>
+                  <td>MATH</td>
+                  <td>MATH4023</td>
+                  <td>Complex Analysis</td>
+                  <td>3</td>
+                </tr>
+                <!-- <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr> -->
+              </tbody>
+              <caption>Table 1 - courses</caption>
+            </table>
+
+            <p class="card-text">
+              Now we are asked to get the top 3 courses that are offered by CSE, ranked in descending order with their credits, then in ascending order with their name. This can be done by a SQL query:
+            </p> 
+
+            <pre class=" language-sql"><code class=" language-sql"><span class="token keyword keyword-SELECT">SELECT</span> <span class="token operator">*</span> <span class="token keyword keyword-FROM">FROM</span> courses
+<span class="token keyword keyword-WHERE">WHERE</span> Department <span class="token operator">=</span> <span class="token string">'CSE'</span>
+<span class="token keyword keyword-ORDER">ORDER</span> <span class="token keyword keyword-BY">BY</span> Credits <span class="token keyword keyword-DESC">DESC</span><span class="token punctuation">,</span> <span class="token punctuation">`</span>Course Name<span class="token punctuation">`</span> <span class="token keyword keyword-ASC">ASC</span>
+<span class="token keyword keyword-LIMIT">LIMIT</span> <span class="token number">3</span><span class="token punctuation">;</span></code></pre>
+
+            <p class="card-text">
+              But we are taking a C++ course, aren't we? How about writing the query using the <em>syntaxes</em> of C++? Imagine we can translate the above SQL query into a C++ statement:
+            </p>
+
+            <pre class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">"Department"</span><span class="token punctuation">,</span> EQ<span class="token punctuation">,</span> <span class="token string">"CSE"</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token string">"Course Name"</span><span class="token punctuation">,</span> ASCENDING<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token string">"Credits"</span><span class="token punctuation">,</span> DESCENDING<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+            <p class="card-text">
+              Looks very readable, isn't it? Your tasks in this programming assignment is to implement classes to support database queries in C++.
+            </p>
+
+            <p class="card-text">
+              For those who are unfamiliar with SQL, here is a <em>brief</em> introduction to the SQL statements and clauses which are mimicked in this programming assignment. Click <a href="https://www.w3schools.com/sqL/sql_intro.asp">here</a> for a full introduction to SQL.
+
+              </p><ul>
+                <li>
+                  <code class=" language-cpp">SELECT</code> statement retrieves information from a table in a database. Columns need to be specified explicity by a list of their names, or use <code class=" language-cpp"><span class="token operator">*</span></code> to denote <em>all</em> columns. In this programming assignment, the result of <code class=" language-cpp">SELECT</code> is printed out in a formatted way.
+                </li>
+                <li>
+                  <code class=" language-cpp">UPDATE</code> statement modifies rows of a table in a database.
+                </li>
+                <li>
+                  <code class=" language-cpp">WHERE</code> clause provides a condition such that <code class=" language-cpp">SELECT</code> and <code class=" language-cpp">UPDATE</code> statements return or update rows that satisfy the condition.
+                </li>
+                <li>
+                  <code class=" language-cpp">ORDER BY</code> clause orders the result of <code class=" language-cpp">SELECT</code> statements according to the values of columns, in ascending or descending order.
+                </li>
+                <li>
+                  <code class=" language-cpp">LIMIT</code> clause limits the result of <code class=" language-cpp">SELECT</code> and <code class=" language-cpp">UPDATE</code> statements. (MySQL only)
+                </li>
+              </ul>
+            <p></p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Introduction
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="download">
+            <h3 class="card-title">Download</h3>
+            <p class="card-text">
+              Download <code class=" language-cpp">main<span class="token punctuation">.</span>cpp</code>, <code class=" language-cpp">table<span class="token punctuation">.</span>h</code> and <code class=" language-cpp">intermediate<span class="token punctuation">.</span>h</code> <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/code/skeleton.zip">HERE</a>.
+            </p>
+            <p class="class">
+              Download expected output <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/code/output.txt">HERE</a>.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Download
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="overview">
+            <h3 class="card-title">Overview</h3>
+            <p class="card-text">
+              You are required to implement two classes, <code class=" language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">Table</span></code> and <code class=" language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">Intermediate</span></code>. The implementations should be written in <code class=" language-cpp">table<span class="token punctuation">.</span>cpp</code> and <code class=" language-cpp">intermediate<span class="token punctuation">.</span>cpp</code> respectively.
+            </p>
+            <p clase="card-text">
+              This programming assignment aims to introduce the notion of <em>classes</em> and reinforce the concepts of <em>pointer manipulation</em> and <em>dynamic memory management</em>. In particular, you will be manipulating the following data structures:
+              </p><ul>
+                <li>Dynamically allocated 2D array</li>
+                <li>Doubly linked list</li>
+              </ul>
+              You are highly advised to revise the lectures if these concepts sound unfamiliar to you.
+            <p></p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Overview
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="table">
+            <h3 class="card-title"><code class=" language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">Table</span></code></h3>
+
+            <p class="card-text">
+              Before we talk about queries, we must define a table. For simplicity, in this programming assignment we assume tables only hold <code class=" language-cpp">string</code> data.
+            </p>
+
+            <p class="card-text">
+              A table has zero or more <em>entries</em>. The information of an entry is characterized by the <em>attributes</em> of a table. In this programming assignment, an entry is represented by a 1-D string array of attributes.
+            </p>
+
+            <hr>
+
+            <h4 class="card-subtitle">Private Members</h4>
+
+            <p class="card-text">
+              A table has 4 private members:
+
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-private">private</span><span class="token operator">:</span>
+  string <span class="token operator">*</span>attrs<span class="token punctuation">;</span>
+  string <span class="token operator">*</span><span class="token operator">*</span>entries<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> numAttrs<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> numEntries<span class="token punctuation">;</span></code></pre>
+
+              <ul>
+                <li><code class=" language-cpp">string <span class="token operator">*</span>attrs</code> stores the 1D array of attributes of the table.</li>
+                <li><code class=" language-cpp">string <span class="token operator">*</span><span class="token operator">*</span>entries</code> stores the 2D array of entries. <code class=" language-cpp">entries<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code> gets the first entry. <code class=" language-cpp">entries<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code> gets the value of the first attribute of the first entry.</li>
+                <li><code class=" language-cpp"><span class="token keyword keyword-int">int</span> numAttrs</code> stores the number of attributes (columns) of the table. For example, in <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#table1">Table 1</a>, <code class=" language-cpp">numAttrs</code> is 4.</li>
+                <li><code class=" language-cpp"><span class="token keyword keyword-int">int</span> numEntries</code> stores the number of entries (rows) of the table. For example, in <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#table1">Table 1</a>, <code class=" language-cpp">numEntries</code> is 8.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <h4 class="card-subtitle">Constructors and Destructors</h4>
+
+            <hr>
+
+            <pre class=" language-cpp"><code class=" language-cpp"><span class="token function">Table</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              The default constructor creates an empty table with <em>no</em> attributes and <em>no</em> entries. You should initialize the private members accordingly.
+            </p>
+
+            <hr>
+
+            <pre class=" language-cpp"><code class=" language-cpp"><span class="token function">Table</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> Table <span class="token operator">&amp;</span>another<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              The copy constructor copies the attributes and entries from the table <code class=" language-cpp">another</code>. Note that deep copy is required.
+            </p>
+
+            <hr>
+
+            <pre class=" language-cpp"><code class=" language-cpp"><span class="token operator">~</span><span class="token function">Table</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              The destructor deallocates all dynamically allocated memory owned by this instance.
+            </p>
+
+            <hr>
+
+            <h4 class="card-subtitle">Member Functions</h4>
+
+            <hr>
+
+            <pre id="addAttribute" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> <span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>attr<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>default_value <span class="token operator">=</span> <span class="token string">""</span><span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              </p><ul>
+                <li>Add the attribute <code class=" language-cpp">attr</code> at <code class=" language-cpp">index</code>. Existing attributes are right shifted.</li>
+                <li>If the table has existing entries, the 2D array, <code class=" language-cpp">entries</code>, must be expanded. The values of the new attribute is <code class=" language-cpp">default_value</code>.</li>
+                <li>If <code class=" language-cpp">index <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span></code>, insert attribute at the end.</li>
+                <li>If <code class=" language-cpp">index</code> is out of range, return <code class=" language-cpp"><span class="token boolean">false</span></code> immediately.</li>
+                <li>Otherwise, proceed and return <code class=" language-cpp"><span class="token boolean">true</span></code>.</li>
+                <li>For example, in <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#table1">Table 1</a>, the valid indices are -1, 0, 1, 2, 3, 4. Adding an attribute at index -1 has the same effect of adding at index 4.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <pre id="addEntry" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> <span class="token function">addEntry</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">*</span>entry<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> index <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              </p><ul>
+                <li>Add the entry <code class=" language-cpp">entry</code> at <code class=" language-cpp">index</code>. Existing entries are down shifted.</li>
+                <li>If <code class=" language-cpp">index <span class="token operator">==</span> <span class="token operator">-</span><span class="token number">1</span></code>, insert entry&nbsp;at the end.</li>
+                <li>If <code class=" language-cpp">index</code> is out of range, return <code class=" language-cpp"><span class="token boolean">false</span></code> immediately.</li>
+                <li>Otherwise, proceed and return <code class=" language-cpp"><span class="token boolean">true</span></code>.</li>
+                <li><strong>Input assertion:</strong> <code class=" language-cpp">entry</code> is guaranteed to have size of <code class=" language-cpp">numAttrs</code>.</li>
+                <li><strong>Input assertion:</strong> Table has at least one attribute (<code class=" language-cpp">numAttrs <span class="token operator">&gt;</span> <span class="token number">0</span></code> and <code class=" language-cpp">attrs <span class="token operator">!=</span> <span class="token keyword keyword-nullptr">nullptr</span></code>).</li>
+              </ul>
+
+            <p></p>
+
+            <hr>
+
+            <pre id="deleteAttribute" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> <span class="token function">deleteAttribute</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> index<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              </p><ul>
+                <li>Delete the attribute at <code class=" language-cpp">index</code>.</li>
+                <li>If <code class=" language-cpp">index</code> is out of range, return <code class=" language-cpp"><span class="token boolean">false</span></code> immediately.</li>
+                <li>Otherwise, proceed and return <code class=" language-cpp"><span class="token boolean">true</span></code>.</li>
+                <li>If the table has existing entries, the 2D array, <code class=" language-cpp">entries</code>, must be shrinked.</li>
+                <li>If there are no attributes left, delete all remaining entries.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <pre id="deleteEntry" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> <span class="token function">deleteEntry</span><span class="token punctuation">(</span><span class="token keyword keyword-int">int</span> index<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              </p><ul>
+                <li>Delete the entry at <code class=" language-cpp">index</code>.</li>
+                <li>If <code class=" language-cpp">index</code> is out of range, return <code class=" language-cpp"><span class="token boolean">false</span></code> immediately.</li>
+                <li>Otherwise, proceed and return <code class=" language-cpp"><span class="token boolean">true</span></code>.</li>
+                <li>Keep the attributes even though no entries remain.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <pre id="append" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> <span class="token function">append</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> Table <span class="token operator">&amp;</span>another<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              </p><ul>
+                <li>If the current table and <code class=" language-cpp">another</code> have different attributes, return <code class=" language-cpp"><span class="token boolean">false</span></code> immediately. The order of attributes has to be the same.</li>
+                <li>Otherwise, append entries of <code class=" language-cpp">another</code>, by adding the entries of <code class=" language-cpp">another</code> to the <em>end</em> of current table, and return <code class=" language-cpp"><span class="token boolean">true</span></code>.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <pre id="query" class=" language-cpp"><code class=" language-cpp">Intermediate <span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-const">const</span></code></pre>
+
+            <p class="card-text">
+              </p><ul>
+                <li><strong>Given</strong></li>
+                <li>Begin a query by making an <code class=" language-cpp">Intermediate</code> object from the current table.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              Hint:
+              </p><ul>
+                <li>Since table is instantiated as 1D/2D array, all add/delete operations can only be done by allocating new arrays and then deallocating the existing ones.</li>
+              </ul>
+            <p></p>
+
+          </div>
+          <div class="card-footer text-muted">
+            End of class Table
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="intermediate">
+            <h3 class="card-title"><code class=" language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">Intermediate</span></code></h3>
+
+            <p class="card-text">
+              An <code class=" language-cpp">Intermediate</code> object represent the intermediate results at various parts of a query. Most importantly, it has a doubly linked list of pointers to entry of table being queried:
+
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-struct">struct</span> <span class="token class-name">EntryNode</span> <span class="token punctuation">{</span>
+  string <span class="token operator">*</span>entry<span class="token punctuation">;</span>
+
+  EntryNode <span class="token operator">*</span>prev<span class="token punctuation">;</span>
+  EntryNode <span class="token operator">*</span>next<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+
+              It should be emphasized that <code class=" language-cpp">Intermediate</code> objects <em>do not own entries</em>. They simply <em>point</em> to the entries that are owned by tables.
+            <p></p>
+
+            <p class="card-text">
+              An <code class=" language-cpp">Intermediate</code> object is created from a table when a query starts. At first, it contains <em>all</em> entries of the table, <em>in the order they appear in the table</em>. During a query, entries can be removed, and the order can be changed, which are done by the following 3 operations:
+
+              </p><ul>
+                <li><code class=" language-cpp"><span class="token function">where</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>: A condition is specified. Entries that do not satisfy the condition are removed from the <code class=" language-cpp">Intermediate</code> object.</li>
+                <li><code class=" language-cpp"><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>: An attribute and an order is specified. The entries are <em>sorted</em> by the attribute according to the given order.</li>
+                <li><code class=" language-cpp"><span class="token function">limit</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>: An limit <code class=" language-cpp">N</code> is specified. Only the first <code class=" language-cpp">N</code> entries stay in the <code class=" language-cpp">Intermediate</code> object. The rest of the entries are removed.</li>
+              </ul>
+            <p></p>
+
+            <p class="card-text">
+              At the end of a query, the <code class=" language-cpp">Intermediate</code> object is passed to one of the following 2 operations:
+
+              </p><ul>
+                <li><code class=" language-cpp"><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>: The remaining entries are printed out. An optional array of attributes spefifies which attributes are printed. If absent, all attributes are printed.</li>
+                <li><code class=" language-cpp"><span class="token function">update</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>: An attribute and a new value is specified. The attribute of <em>all</em> entries are updated to the new value.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <h4 class="card-subtitle">Private Members</h4>
+
+            <hr>
+
+            <p class="card-text">
+              An intermediate object has 4 private members:
+
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-private">private</span><span class="token operator">:</span>
+  <span class="token keyword keyword-const">const</span> string <span class="token operator">*</span>attrs<span class="token punctuation">;</span>
+  <span class="token keyword keyword-int">int</span> numAttrs<span class="token punctuation">;</span>
+
+  EntryNode <span class="token operator">*</span>head<span class="token punctuation">;</span>
+  EntryNode <span class="token operator">*</span>tail<span class="token punctuation">;</span></code></pre>
+
+              <ul>
+                <li><code class=" language-cpp"><span class="token keyword keyword-const">const</span> string <span class="token operator">*</span>attrs</code> points to the 1D array of attributes of the table.</li>
+                <li><code class=" language-cpp"><span class="token keyword keyword-int">int</span> numAttrs</code> stores the number of attributes.</li>
+                <li><code class=" language-cpp">EntryNode <span class="token operator">*</span>head</code> and <code class=" language-cpp">EntryNode <span class="token operator">*</span>tail</code> are the head and tail of the doubly linked list.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <h4 class="card-subtitle">Constructors and Destructors</h4>
+
+            <hr>
+
+            <pre class=" language-cpp"><code class=" language-cpp"><span class="token function">Intermediate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword keyword-delete">delete</span></code></pre>
+
+            <p class="card-text">
+              No default constructor.
+            </p>
+
+            <hr>
+
+            <pre class=" language-cpp"><code class=" language-cpp"><span class="token function">Intermediate</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> Table <span class="token operator">&amp;</span>table<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              The only way to construct an intermediate is by converting from a table. When you convert a table to an intermediate, the doubly linked list of <code class=" language-cpp">EntryNode</code> should store the pointer of entries <em>in the order they appear in the table</em>. That is, <code class=" language-cpp">head<span class="token operator">-&gt;</span>entry</code> should point to <code class=" language-cpp">entries<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span></code>, and <code class=" language-cpp">tail<span class="token operator">-&gt;</span>entry</code> should point to <code class=" language-cpp">entries<span class="token punctuation">[</span>numEntries<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span></code>. <code class=" language-cpp">attrs</code> should just simply points to <code class=" language-cpp">table<span class="token punctuation">.</span>attrs</code>. You don't need to copy it.
+            </p>
+
+            <p class="card-text">You will need to access the private members of <code class=" language-cpp">Table</code> objects. A <code class=" language-cpp"><span class="token keyword keyword-friend">friend</span></code> class declaration at <code class=" language-cpp">table<span class="token punctuation">.</span>h</code> allows you to do this in this constructor only. Note: The <code class=" language-cpp"><span class="token keyword keyword-friend">friend</span></code> syntax will be formally introduced in later sections of this course. </p>
+
+            <p class="card-text">
+              You can assume the following:
+              </p><ul>
+                <li><code class=" language-cpp">table</code> has at least one attribute.</li>
+                <li>After an intermediate is created, <code class=" language-cpp">table</code> will not be deleted or modified by any member functions of Table until the intermediate is not used.</li>
+              </ul>
+            <p></p>
+
+            <hr>
+
+            <pre class=" language-cpp"><code class=" language-cpp"><span class="token operator">~</span><span class="token function">Intermediate</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              The destructor should only deallocate dynamically allocated memory that is owned by this object.
+            </p>
+
+            <hr>
+
+            <h4 class="card-subtitle">Member Functions</h4>
+
+            <hr>
+
+            <pre id="where" class=" language-cpp"><code class=" language-cpp">Intermediate<span class="token operator">&amp;</span> <span class="token function">where</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>attr<span class="token punctuation">,</span> <span class="token keyword keyword-enum">enum</span> <span class="token class-name">compare</span> mode<span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>value<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              Implements the <code class=" language-cpp">WHERE</code> clause. A <em>condition</em> is specified. Only entries whose conditions evaluate to true remain in the intermediate. The entries whose conditions evaluate to false are removed.
+            </p>
+
+            <p class="card-text">
+              An entry is said to <em>satisfy</em> a condition if its attribute <code class=" language-cpp">attr</code> satisfy the comparison <code class=" language-cpp">mode</code> with <code class=" language-cpp">value</code>. The comparison mode is defined as:
+
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-enum">enum</span> <span class="token class-name">compare</span> <span class="token punctuation">{</span>EQ<span class="token punctuation">,</span> CONTAINS<span class="token punctuation">}</span></code></pre>
+
+              For example, suppose the attribute of an entry has a value <code class=" language-cpp">v</code>. The comparison is satisfied if:
+
+              <ul>
+                <li>For <code class=" language-cpp">EQ</code>(Equals), <code class=" language-cpp">v</code> is equal to <code class=" language-cpp">value</code>.</li>
+                <li>For <code class=" language-cpp">CONTAINS</code>, <code class=" language-cpp">value</code> is a <em>substring</em> of v.</li>
+              </ul>
+
+              Hints:
+              <ul>
+                <li>For substring checking, see <code class=" language-cpp">std<span class="token operator">::</span>string<span class="token operator">::</span>find</code>.</li>
+                <li>You need to remove elements from a doubly linked list.</li>
+              </ul>
+
+              Exception:
+              <ul>
+                <li>If the attribute <code class=" language-cpp">attr</code> is not found, do nothing.</li>
+              </ul>
+
+              Click <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#example_where">here</a> for example. <br>
+              Click <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#example_where_not_found">here</a> for example where the attribute <code class=" language-cpp">attr</code> is not found.
+              
+            <p></p>
+
+            <hr>
+
+            <pre id="orderBy" class=" language-cpp"><code class=" language-cpp">Intermediate<span class="token operator">&amp;</span> <span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>attr<span class="token punctuation">,</span> <span class="token keyword keyword-enum">enum</span> <span class="token class-name">order</span> order<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              Implements the <code class=" language-cpp">ORDER BY</code> clause. The entries in the intermediate are sorted by the attribute <code class=" language-cpp">attr</code>, with order specified by <code class=" language-cpp">order</code>. The order is defined as:
+
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-enum">enum</span> <span class="token class-name">order</span> <span class="token punctuation">{</span>ASCENDING<span class="token punctuation">,</span> DESCENDING<span class="token punctuation">}</span></code></pre>
+
+              For <code class=" language-cpp">ASCENDING</code> order, the entries are sorted in ascending order of their attributes <code class=" language-cpp">attr</code>. Similarly for <code class=" language-cpp">DESCENDING</code> order. String comparisons are performed. If two strings are equal, their relative order does not change (see Examples). Since this is not a course on algorithms, you are free to any method to sort the entries.
+            <p></p>
+
+            <p class="card-text">
+              Hints:
+              </p><ul>
+                <li>For string comparison, see <code class=" language-cpp">std<span class="token operator">::</span>string<span class="token operator">::</span>compare</code>.</li>
+                <li>For a simple sorting algorithm, see Bubble Sort.</li>
+              </ul>
+
+              Exception:
+              <ul>
+                <li>If the attribute <code class=" language-cpp">attr</code> is not found, do nothing.</li>
+              </ul>
+
+              Click <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#example_orderby">here</a> for example.
+            <p></p>
+
+            <hr>
+
+            <pre id="limit" class=" language-cpp"><code class=" language-cpp">Intermediate<span class="token operator">&amp;</span> <span class="token function">limit</span><span class="token punctuation">(</span><span class="token keyword keyword-unsigned">unsigned</span> <span class="token keyword keyword-int">int</span> limit<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              Implements the <code class=" language-cpp">LIMIT</code> clause. Only the first <code class=" language-cpp">limit</code> entries remain in the intermediate. All following entries are removed.
+
+              </p><ul>
+                <li>If <code class=" language-cpp">limit <span class="token operator">==</span> <span class="token number">0</span></code>, results an empty intermediate.</li>
+                <li>If <code class=" language-cpp">limit</code> is larger than number of entries, results an intermediate with all entries.</li>
+              </ul>
+            <p></p>
+
+            <p class="card-text">
+              Hint:
+              </p><ul>
+                <li>You need to <em>truncate</em> a doubly linked list.</li>
+              </ul>
+
+              Click <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#example_limit">here</a> for example.
+            <p></p>
+
+            <hr>
+
+            <pre id="update" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-void">void</span> <span class="token function">update</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>attr<span class="token punctuation">,</span> <span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>new_value<span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              Implements the <code class=" language-cpp">UPDATE</code> statement. The attribute <code class=" language-cpp">attr</code> of <em>all</em> entries in the intermediate gets the value <code class=" language-cpp">new_value</code>.
+            </p>
+
+            <p class="card-text">
+              Exception:
+              </p><ul>
+                <li>If the attribute <code class=" language-cpp">attr</code> is not found, do nothing.</li>
+              </ul>
+
+              Click <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#example_update">here</a> for example.
+            <p></p>
+
+            <hr>
+
+            <pre id="select" class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-void">void</span> <span class="token function">select</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">*</span>attrs <span class="token operator">=</span> <span class="token keyword keyword-nullptr">nullptr</span><span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> numAttrs <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span></code></pre>
+
+            <p class="card-text">
+              Implements the <code class=" language-cpp">SELECT</code> statement. The entries in the intermediate are printed, only with attributes specified <em>in the order of the array</em> <code class=" language-cpp">attrs</code>, whose size is given by <code class=" language-cpp">numAttrs</code>.
+
+              </p><ul>
+                <li>If <code class=" language-cpp">attrs <span class="token operator">==</span> <span class="token keyword keyword-nullptr">nullptr</span></code>, print all attributes in the order of the table, regardless of <code class=" language-cpp">numAttrs</code>.</li>
+                <li>If the table has no attribute, do nothing.</li>
+                <li>If the intermediate has no entries, print attributes only.</li>
+                <li><strong>Input assertion:</strong> The attributes in <code class=" language-cpp">attrs</code> are guaranteed to be found and unique.</li>
+              </ul>
+
+              The output should be <em>formatted</em>:
+              <ul>
+                <li>Each column is separated by three characters: A space, <code class=" language-cpp"><span class="token operator">|</span></code>, and another space.</li>
+                <li>Each column has the length <em>equal to the longest value in the column</em>. Values are <em>left-padded with spaces</em>. See the provided helper function <code class=" language-cpp">string <span class="token function">_left_pad_until</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> string <span class="token operator">&amp;</span>s<span class="token punctuation">,</span> <span class="token keyword keyword-int">int</span> length<span class="token punctuation">)</span></code> for left-padding.</li>
+              </ul>
+
+              Click <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#example_select">here</a> for example.
+            <p></p>
+          </div>
+          <div class="card-footer text-muted">
+            End of class Intermediate
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="examples">
+            <h3 class="card-title">Examples</h3>
+            <p class="card-text">
+              Each of the example below individually demonstrate the expected behaviours of the functions you need to implement. Unless stated otherwise, we will always start from <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#table1">Table 1</a>.
+            </p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> result <span class="token operator">=</span> courses<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"Semester"</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"2020S"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              <code class=" language-cpp">result</code> is <code class=" language-cpp"><span class="token boolean">true</span></code>. And Table 1 becomes:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Semester</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>2020S</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>2020S</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>2020S</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>2020S</td>
+                    <td>COMP4511</td>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>2020S</td>
+                    <td>COMP4641</td>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>2020S</td>
+                    <td>MATH2343</td>
+                    <td>Discrete Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>2020S</td>
+                    <td>MATH3033</td>
+                    <td>Real Analysis</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>2020S</td>
+                    <td>MATH4023</td>
+                    <td>Complex Analysis</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> result <span class="token operator">=</span> courses<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"Semester"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              <code class=" language-cpp">result</code> is <code class=" language-cpp"><span class="token boolean">true</span></code>. And Table 1 becomes:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                    <th>Semester</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4511</td>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>3</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4641</td>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>3</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH2343</td>
+                    <td>Discrete Structures</td>
+                    <td>4</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH3033</td>
+                    <td>Real Analysis</td>
+                    <td>4</td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH4023</td>
+                    <td>Complex Analysis</td>
+                    <td>3</td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> result <span class="token operator">=</span> courses<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"Semester"</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"2020S"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              <code class=" language-cpp">result</code> is <code class=" language-cpp"><span class="token boolean">false</span></code>.
+            <p></p>
+            
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp"><span class="token keyword keyword-bool">bool</span> result <span class="token operator">=</span> courses<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"Semester"</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">,</span> <span class="token string">"2020S"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              <code class=" language-cpp">result</code> is <code class=" language-cpp"><span class="token boolean">false</span></code>.
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp">string comp3511<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span><span class="token string">"CSE"</span><span class="token punctuation">,</span> <span class="token string">"COMP3511"</span><span class="token punctuation">,</span> <span class="token string">"Operating Systems"</span><span class="token punctuation">,</span> <span class="token string">"3"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-bool">bool</span> result <span class="token operator">=</span> courses<span class="token punctuation">.</span><span class="token function">addEntry</span><span class="token punctuation">(</span>comp3511<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              <code class=" language-cpp">result</code> is <code class=" language-cpp"><span class="token boolean">true</span></code>. And Table 1 becomes:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3511</td>
+                    <td>Operating Systems</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4511</td>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4641</td>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH2343</td>
+                    <td>Discrete Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH3033</td>
+                    <td>Real Analysis</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH4023</td>
+                    <td>Complex Analysis</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out Table 1.
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre id="example_where" class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">"Department"</span><span class="token punctuation">,</span> EQ<span class="token punctuation">,</span> <span class="token string">"CSE"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out the following:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4511</td>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4641</td>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre id="example_where_not_found" class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">"Semester"</span><span class="token punctuation">,</span> EQ<span class="token punctuation">,</span> <span class="token string">"2020S"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out Table 1, since the attribute "Semester" is not found and thus <code class=" language-cpp"><span class="token function">where</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> returns the unmodified intermediate.
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre id="example_orderby" class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token string">"Department"</span><span class="token punctuation">,</span> DESCENDING<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out the following:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH2343</td>
+                    <td>Discrete Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH3033</td>
+                    <td>Real Analysis</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH4023</td>
+                    <td>Complex Analysis</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3511</td>
+                    <td>Operating Systems</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4511</td>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4641</td>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+              Note: This sorts only the department. The order among CSE courses did not change. Same for MATH courses.
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre id="example_limit" class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out the following:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre id="example_select" class=" language-cpp"><code class=" language-cpp">string selector<span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"Course Name"</span><span class="token punctuation">,</span> <span class="token string">"Course Code"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span>selector<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out the following:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Course Name</th>
+                    <th>Course Code</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>COMP2012</td>
+                  </tr>
+                  <tr>
+                    <td>Java Programming</td>
+                    <td>COMP3021</td>
+                  </tr>
+                  <tr>
+                    <td>Operating Systems</td>
+                    <td>COMP3511</td>
+                  </tr>
+                  <tr>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>COMP3711</td>
+                  </tr>
+                  <tr>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>COMP4511</td>
+                  </tr>
+                  <tr>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>COMP4641</td>
+                  </tr>
+                  <tr>
+                    <td>Discrete Structures</td>
+                    <td>MATH2343</td>
+                  </tr>
+                  <tr>
+                    <td>Real Analysis</td>
+                    <td>MATH3033</td>
+                  </tr>
+                  <tr>
+                    <td>Complex Analysis</td>
+                    <td>MATH4023</td>
+                  </tr>
+                </tbody>
+              </table>
+              Note: The order of provided attributes does not have to follow the order of attributes of the table.
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre id="example_update" class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">"Course Name"</span><span class="token punctuation">,</span> CONTAINS<span class="token punctuation">,</span> <span class="token string">"Programming"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span><span class="token string">"Credits"</span><span class="token punctuation">,</span> <span class="token string">"5"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out the following:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4511</td>
+                    <td>System and Kernel Programming in Linux</td>
+                    <td>5</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP4641</td>
+                    <td>Social Information Network Analysis and Engineering</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH2343</td>
+                    <td>Discrete Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH3033</td>
+                    <td>Real Analysis</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>MATH</td>
+                    <td>MATH4023</td>
+                    <td>Complex Analysis</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+              Note: For <em>all</em> the courses whose name contains "Programming", the credits are updated to 5.
+            <p></p>
+
+            <hr>
+
+            <p class="card-text">
+              </p><pre class=" language-cpp"><code class=" language-cpp">courses<span class="token punctuation">.</span><span class="token function">query</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">where</span><span class="token punctuation">(</span><span class="token string">"Department"</span><span class="token punctuation">,</span> EQ<span class="token punctuation">,</span> <span class="token string">"CSE"</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token string">"Course Name"</span><span class="token punctuation">,</span> ASCENDING<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">orderBy</span><span class="token punctuation">(</span><span class="token string">"Credits"</span><span class="token punctuation">,</span> DESCENDING<span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">limit</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span>
+<span class="token punctuation">.</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+              prints out the following:
+              <table>
+                <thead>
+                  <tr>
+                    <th>Department</th>
+                    <th>Course Code</th>
+                    <th>Course Name</th>
+                    <th>Credits</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP2012</td>
+                    <td>Object Oriented Programming and Data Structures</td>
+                    <td>4</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3711</td>
+                    <td>Design and Analysis of Algorithms</td>
+                    <td>3</td>
+                  </tr>
+                  <tr>
+                    <td>CSE</td>
+                    <td>COMP3021</td>
+                    <td>Java Programming</td>
+                    <td>3</td>
+                  </tr>
+                </tbody>
+              </table>
+            <p></p>
+
+          </div>
+          <div class="card-footer text-muted">
+            End of Examples
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="grading">
+            <h3 class="card-title">Grading</h3>
+            <p class="card-text">
+              </p><ul>
+                <li>
+                  When we grade your assignment, your submissions will be compiled with <code class=" language-cpp">main<span class="token punctuation">.</span>cpp</code>, <code class=" language-cpp">table<span class="token punctuation">.</span>h</code> and <code class=" language-cpp">intermediate<span class="token punctuation">.</span>h</code> that are <em>different</em> from what you have. 
+                </li>
+                <li>
+                  We will inspect the <em>private members</em> of objects that you create and compare them with expected values.
+                  <ul>
+                    <li>
+                      For 2D array in table, make sure that <code class=" language-cpp">data<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span></code> is the n-th attribute of the m-th entry (index starts with 0), <em>not the other way round</em>.
+                    </li>
+                    <li>
+                      For the pointers in intermediates, e.g. <code class=" language-cpp">Intermediate<span class="token operator">::</span>attrs</code>, we will verify its address, whether it points to <code class=" language-cpp">Table<span class="token operator">::</span>attrs</code>.
+                    </li>
+                    <li>
+                      For the doubly linked list of intermediates, please verify <em>all</em> pointers are correctly set. There should be no dangling pointers, and forward and backward linked list traversal should work fine.
+                    </li>
+                  </ul>
+                  
+                </li>
+                <li>
+                  For string output in <code class=" language-cpp">Intermediate<span class="token operator">::</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, we will perform string matching. Therefore, ensure your output is <em>exactly</em> the same from the given sample output.
+                  <ul>
+                    <li>
+                      Make sure you removed <em>ALL</em> debug statements. We may deduct points if you failed to do so.
+                    </li>
+                    <li>
+                      For tools that can do string matching, see <a href="https://www.diffchecker.com/">diffchecker</a>.
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  Do not assume the size of tables. We may use <em>large</em> tables in grading.
+                </li>
+              </ul>
+            <p></p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Grading
+          </div>
+        </div>
+
+        <div class="card mb-4 language-none">
+          <div class="card-body" id="memory_leak">
+            <h3 class="card-title">Memory Leak</h3>
+            <p class="card-text">
+              <a href="https://www.drmemory.org/" target="_blank"><code class=" language-none">drmemory</code> (Dr. Memory)</a> is an open-source memory profiler. A feature that are interesting for this course is detection for memory leaks. To enforce a high coding standard, <em>your submissions will be checked for memory leaks</em>.
+            </p>
+
+            <h4 class="card-title">Download <code class=" language-none">drmemory</code></h4>
+
+            <p class="card-text">
+              </p><ul>
+                <li>For Windows users, we recommend you to download the <a href="https://github.com/DynamoRIO/drmemory/releases/download/release_2.3.0/DrMemory-Windows-2.3.0-1.zip" target="_blank">portable version</a>.</li>
+                <li>For macOS users, click <a href="https://github.com/DynamoRIO/drmemory/releases/download/release_2.3.0/DrMemory-MacOS-2.3.0-1.tar.gz" target="_blank">here</a>. Double-click in Finder to decompress.</li>
+                <li>For Linux users, click <a href="https://github.com/DynamoRIO/drmemory/releases/download/release_2.3.0/DrMemory-Linux-2.3.0-1.tar.gz">here</a>.</li>
+              </ul>
+            <p></p>
+
+            <h4 class="card-title">Running <code class=" language-none">drmemory</code></h4>
+
+            <h5 class="card-title">Notes on Eclipse User</h5>
+
+            <p class="card-text">
+              If you are using a managed build project in Eclipse (not a Makefile project), you need to use static linking so that you can run your program outside Eclipse.
+            </p>
+
+            <p class="card-text">
+              Goto "Project" -&gt; "Properties" -&gt; "C/C++ Build" -&gt; "Settings" -&gt; "Tool Settings" tab -&gt; "MinGW C++ Linker" -&gt; "Miscellaneous" -&gt; type "-static" in the "Linker flags" box.
+            </p>
+
+            <h5 class="card-title">Running <code class=" language-none">drmemory</code> on Windows</h5>
+
+            <p class="card-text">
+              </p><ol>
+                <li>Locate your program. If you are using Eclipse, then it is available at <code class=" language-none">"Eclipse_Workspace"\"Project_Name"\Debug\"Project_Name".exe</code>.</li>
+                <li>Locate <code class=" language-none">drmemory</code>. It is located at <code class=" language-none">bin64</code> folder after extraction.</li>
+                <li>Simply drag and drop your program to <code class=" language-none">drmemory</code>. <img class="limit" src="./COMP 2012 Assignment 1_ Database Queries_files/drmemory_windows_drag.png"></li>
+                <li>If the following error occured, click "OK" to dismiss it. <br> <img class="limit" src="./COMP 2012 Assignment 1_ Database Queries_files/drmemory_windows_error.png"></li>
+                <li>After a while, the output is shown in a text document.</li>
+              </ol>
+            <p></p>
+
+            <h5 class="card-text">Running <code class=" language-none">drmemory</code> on macOS</h5>
+
+            <p class="card-text">
+              </p><ol>
+                <li>Find the path to your program. You can reveal its path by dragging it from Finder onto a terminal.</li>
+                <li>Find the path to <code class=" language-none">drmemory</code>.</li>
+                <li>
+                  Run the following command in a terminal.
+                  <pre class=" language-none"><code class=" language-none">path/to/drmemory -- path/to/your/program</code></pre>
+                  For example:
+                  <pre class=" language-none"><code class=" language-none">/Users/kelvin/DrMemory-MacOS-2.3.0-1/bin64/drmemory -- /Users/kelvin/pa1/pa1</code></pre>
+                </li>
+                <li>If the following alert pops up, dismiss it. <br> <img class="limit" src="./COMP 2012 Assignment 1_ Database Queries_files/drmemory_mac_alert.png"></li>
+                <li>Then go to "System Preferences" &gt; "Security &amp; Privacy" &gt; "General" &gt; Click "Open Anyway". Rerun the command. Repeat this for all alerts.<br> <img class="limit" src="./COMP 2012 Assignment 1_ Database Queries_files/drmemory_mac_security.png"></li>
+              </ol>
+            <p></p>
+
+            <h5 class="card-text">Running <code class=" language-none">drmemory</code> on Linux</h5>
+
+            <p class="card-text">
+              See the command for macOS. Make sure you run <code class=" language-none">bin64/drmemory</code> (NOT <code class=" language-none">bin/drmemory</code>!).
+            </p>
+
+            <h5 class="card-title">Result</h5>
+
+            <p class="card-text">
+              At the end of the output, find the result for <strong>leak(s)</strong> and <strong>possible leak(s)</strong>:
+              </p><pre class=" language-none"><code class=" language-none">~~Dr.M~~       0 unique,     0 total,      0 byte(s) of leak(s)
+~~Dr.M~~       0 unique,     0 total,      0 byte(s) of possible leak(s)</code></pre>
+              If the number of bytes for <em>both</em> are 0, then your code is free from memory leaks. If the number of bytes are not zero, then your code is prone to memory leaks. Note: You can ignore the bytes for <em>still-reachable allocation(s)</em>. They are not counted as memory leaks.
+            <p></p>
+            
+          </div>
+          <div class="card-footer text-muted">
+            End of Memory Leak
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="hints">
+            <h3 class="card-title">Hints</h3>
+            <p class="card-text">
+              Your submissions will be tested on all kinds of input, whether it is valid or not. Being able to produce the expected output does not imply you will receive full marks in this programming assignment. Make sure you followed the specifications of each function carefully.
+            </p>
+            <p class="card-text">
+              You can safely assume the following when you complete this programming assignment:
+              </p><ul>
+                <li>No two attributes in a table are the same.</li>
+                <li>In <code class=" language-cpp">Table<span class="token operator">::</span><span class="token function">addEntry</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, the entry being added has size equal to the number of attributes in the table.</li>
+                <li>In <code class=" language-cpp">Table<span class="token operator">::</span><span class="token function">select</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>, the given attributes exist in the table.</li>
+                <li>When <code class=" language-cpp">Intermediate<span class="token operator">::</span><span class="token function">Intermediate</span><span class="token punctuation">(</span><span class="token keyword keyword-const">const</span> Table <span class="token operator">&amp;</span>table<span class="token punctuation">)</span></code> is called, <code class=" language-cpp">table</code> has at least one attribute.</li>
+                <li>After an intermediate is created, the table will NOT be modified by ANY member functions of Table (including destructor) until the intermediate is not used.</li>
+              </ul>
+            <p></p>
+            <p class="card-text">
+              Complete <code class=" language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">Table</span></code> before <code class=" language-cpp"><span class="token keyword keyword-class">class</span> <span class="token class-name">Intermediate</span></code>. You can implement <code class=" language-cpp">Table<span class="token operator">::</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> function to print out the table.
+            </p>
+            <p class="card-text">
+              Here are some tips to check for memory leak.
+              </p><ul>
+                <li>Limit the number of classes constructed and functions called, by commenting out the examples in <code class=" language-cpp"><span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code>. Then run <code class=" language-cpp">valgrind</code> again. This will help you to pinpoint which classes and functions are the sources of memory leak.</li>
+                <li>Make sure a <code class=" language-cpp"><span class="token keyword keyword-delete">delete</span></code> follows every <code class=" language-cpp"><span class="token keyword keyword-new">new</span></code>.</li>
+                <li>If you are going to modify pointers, make sure the reference to previous block of memory is not lost.</li>
+              </ul>
+              Double deletion refers to calling <code class=" language-cpp"><span class="token keyword keyword-delete">delete</span></code> multiple times on the same block of dynamic memory. Here are some tips to avoid this.
+              <ul>
+                <li>Be clear about the ownership of dynamic memory. Only the class that owns a particular block of dynamic memory should call <code class=" language-cpp"><span class="token keyword keyword-delete">delete</span></code>.</li>
+                <li>Pay attention when using pointer variables in functions. Do not call <code class=" language-cpp"><span class="token keyword keyword-delete">delete</span></code> unless there is a reason to.</li>
+              </ul>
+            <p></p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Hints
+          </div>
+        </div>
+
+        <!-- Submission and deadline section -->
+        <!-- ### Complete submission and deadline section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="submission">
+            <h3 class="card-title">Submission and Deadline</h3>
+            <p class="card-text">
+              Deadline: 23:59:00 March 28, 2020
+            </p>
+
+            <h4 class="card-title">Canvas Submission</h4>
+
+            <p class="card-text">
+              Create a zip file that contains the <strong>2 .cpp files</strong>: <code class=" language-cpp">table<span class="token punctuation">.</span>cpp</code> and <code class=" language-cpp">intermediate<span class="token punctuation">.</span>cpp</code>. The zip file should be named as <strong>pa1.zip</strong>. Submit only <strong>pa1.zip</strong> through the <strong>Canvas Submission Page</strong>: 
+
+              </p><ul>
+                <li><a href="https://canvas.ust.hk/courses/29848/assignments/102330">Submission Page for L1</a>.</li>
+                <li><a href="https://canvas.ust.hk/courses/29852/assignments/102329">Submission Page for L2</a>.</li>
+                <li><a href="https://canvas.ust.hk/courses/29856/assignments/102331">Submission Page for L3</a>.</li>
+                <li><a href="https://canvas.ust.hk/courses/29860/assignments/102332">Submission Page for L4</a>.</li>
+              </ul>
+
+              <strong>The filenames have to be exactly the same</strong>. It must be a zip file, not rar, not 7z, not tar, not gz, etc. Inside the zip file, the 2 cpp files need to have correct names. If your submissions cannot be uncompressed, they will not be graded.
+            <p></p>
+
+            <p class="card-text">
+              Make sure your source files can be compiled. If we cannot compile your submissions, they will not be graded. Therefore, you should at least put in dummy implementations to the parts that you cannot finish so that there will be no compilation error.
+            </p>
+
+            <p class="card-text">
+              <strong>Make sure you actually upload the correct version of your source files - we only grade what you upload</strong>. Some students in the past submitted an empty file or a wrong file or an exe file which is worth zero mark. So <strong> you must download and double-check the files you have submitted</strong>.
+            </p>
+
+            <p class="card-text">
+              <img class="limit" src="./COMP 2012 Assignment 1_ Database Queries_files/canvas.png">
+            </p>
+
+            <p class="card-text">You may submit your file multiple times, but only the latest version will be graded.</p>
+
+            <p class="card-text">Submit early to avoid any last-minute problem. Only canvas submissions will be accepted.</p>
+
+            <p class="card-text">
+              Note 1: If you have no idea how to create a zip file, you may see <a href="https://www.laptopmag.com/articles/how-to-zip-files-windows-10">How to create a zip file in Windows 10</a> or <a href="http://osxdaily.com/2012/01/10/how-to-zip-files-in-mac-os-x/">How to create a zip file in Mac OS X</a> . <span style="color:red;">Try to zip just the 2 cpp files, not a folder containing the 2 files</span>.
+            </p>
+
+            <p class="card-text">
+              Note 2: Canvas may append a number to the filename of the file you have submitted. e.g. pa1-1.zip. It is OK as long as you have named your file as pa1.zip when you submit it.
+            </p>
+
+            <h4 class="card-title">Using Virtual Barn</h4>
+
+            <p class="card-text">
+              It is <strong>required</strong> that your submissions can be compiled and run successfully in our official Windows Eclipse which can be downloaded from the "Using Eclipse at home (Windows)" section <a href="https://course.cse.ust.hk/comp2012/labs/eclipse_intro/index.html#">here</a>. You need to unzip the zip file first, and then run the Eclipse program extracted from it. Do not just double-click the zip file. If you have used other IDE/compiler/OS (including macOS Eclipse) to work out your solution, you should test your program in the aforementioned official environment before submission. This version of Eclipse is also installed on our lab machines.
+            </p>
+
+            <p class="card-text">
+              If you have no access to a standard Windows machine, you may remote control a Windows machine in <a href="http://itsc.ust.hk/services/academic-teaching-support/facilities/virtual-barn/overview/">HKUST virtual barn</a>. Choose the "Programming Software" server, and you will find Eclipse shortcut on the desktop. This is a newer version of Eclipse with a slightly different interface. However, its compiler has the same version as ours and can be used to verify if your program can be compiled by us for grading. In particular, to create a new C++ project, you can do so from "File" menu -&gt; "New" -&gt; "Project..." -&gt; "C++ project" -&gt; Type a project name -&gt; Choose MinGW compiler -&gt; "Finish". Also, to build the project, save your files, then use the Hammer and Run buttons, circled in the following screenshot (NOT the ones on the left): <br> <img class="limit" src="./COMP 2012 Assignment 1_ Database Queries_files/eclipse.png">
+            </p>
+            
+            <h4 class="card-title">Late submission policy</h4>
+
+            <p class="card-text">
+              There will be a penalty of -1 point (out of a maximum 100 points) for every minute you are late. For instance, since the deadline of assignment 1 is 23:59:00 on Mar 28, if you submit your solution at 1:00:00 on Mar 29, there will be a penalty of -61 points for your assignment. However, the lowest grade you may get from an assignment is zero: any negative score after the deduction due to late penalty (and any other penalties) will be reset to zero.
+            </p>
+
+          </div>
+          <div class="card-footer text-muted">
+            End of Submission and Deadline
+          </div>
+        </div>
+
+        <!-- FAQ section -->
+        <!-- ### Complete FAQ section for the assignment ### -->
+        <div class="card mb-4">
+          <div class="card-body" id="faq">
+            <h3 class="card-title">FAQ</h3>
+            <p class="card-text">
+              </p><ul>
+                <li>Q: What do I need to do when I call <code class=" language-cpp"><span class="token function">addEntry</span><span class="token punctuation">(</span><span class="token punctuation">)</span></code> when the table has no attributes (<code class=" language-cpp">numAttrs <span class="token operator">==</span> <span class="token number">0</span></code> and <code class=" language-cpp">attrs <span class="token operator">==</span> <span class="token keyword keyword-nullptr">nullptr</span></code>)?</li>
+                <li>A: You don't need to consider this. It is not tested.</li>
+              </ul>
+            <p></p>
+
+            <p class="card-text">
+              </p><ul>
+                <li>Q: Can I use extra libraries?</li>
+                <li>A: No. You just need to use <code class=" language-cpp">iostream</code>.</li>
+              </ul>
+            <p></p>
+
+            <p class="card-text">
+              </p><ul>
+                <li>Q: Can I create helper functions?</li>
+                <li>A: Yes. Just put them along your code in <code class=" language-cpp">table<span class="token punctuation">.</span>cpp</code> and <code class=" language-cpp">intermediate<span class="token punctuation">.</span>cpp</code>.</li>
+              </ul>
+            <p></p>
+
+            <!-- <p class="card-text">
+              <ul>
+                <li>Q</li>
+                <li>A</li>
+              </ul>
+            </p> -->
+          </div>
+          <div class="card-footer text-muted">
+            End of FAQ
+          </div>
+        </div>
+
+        <div class="card mb-4">
+          <div class="card-body" id="plagiarism">
+            <h3 class="card-title">About Plagiarism</h3>
+            <p class="card-text">
+              If you get caught cheating, both you and the other person will get zero for the assignment. It does not matter how much you copied. According to HKUST rules, both of you have the same penalty. There may also be additional penalties other than just getting zero for the assignment. You are responsible for keeping your own work safe from being accessed or "referenced" by others in any way. However, discussing with others is fine as that's different from direct copying. Also be reminded that the plagiarism detection software is very robust nowadays. On top of that we will also examine your submissions manually.
+            </p>
+          </div>
+          <div class="card-footer text-muted">
+            End of Plagiarism
+          </div>
+        </div>
+
+        <!--
+        <div class="card mb-4">
+          <div class="card-body" id="">
+            <h3 class="card-title"></h3>
+            
+          </div>
+          <div class="card-footer text-muted">
+            End of 
+          </div>
+        </div>
+        -->
+      </div>
+
+      <!-- Sidebar Widgets Column -->
+      <div class="col-md-3">
+        <!-- Menu Widget -->
+        <div class="sticky-top">
+          <div class="card my-12">
+            <h5 class="card-header">Menu</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="mb-0" type="circle" style="padding-left:20px">
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#introduction">Introduction</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#download">Download</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#overview">Overview</a>
+                      <ul>
+                        <li>
+                          <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#table">class Table</a>
+                        </li>
+                        <li>
+                          <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#intermediate">class Intermediate</a>
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#examples">Examples</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#grading">Grading</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#memory_leak">Memory Leak</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#hints">Hints</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#submission">Submission &amp; Deadline</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#faq">FAQ</a>
+                    </li>
+                    <li>
+                      <a href="https://course.cse.ust.hk/comp2012/assignments/assignment1/#plagiarism">About Plagiarism</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Maintainance widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Page maintained by</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      Kelvin Chiu
+                    </li>
+                    <li>
+                      Email: <a href="mailto:%20kelvinchiu@cse.ust.hk">kelvinchiu@cse.ust.hk</a>
+                    </li>
+                    <li>Last Modified:
+                      <script type="text/javascript">document.write(document.lastModified);</script>03/18/2020 23:13:32
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Homepage widget -->
+          <div class="card my-4">
+            <h5 class="card-header">Homepage</h5>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12">
+                  <ul class="list-unstyled mb-0">
+                    <li>
+                      <a href="http://course.cse.ust.hk/comp2012">Course Homepage</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.row -->
+
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Maintained by COMP 2012 Teaching Team © 2020 HKUST Computer Science
+        and Engineering</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="./COMP 2012 Assignment 1_ Database Queries_files/jquery.min.js.download"></script>
+  <script src="./COMP 2012 Assignment 1_ Database Queries_files/bootstrap.bundle.min.js.download"></script>
+
+  <!-- Prism syntax highlighter -->
+  <script src="./COMP 2012 Assignment 1_ Database Queries_files/prism.js.download"></script>
+  <script type="text/javascript">
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.maxHeight) {
+          panel.style.maxHeight = null;
+        } else {
+          panel.style.maxHeight = panel.scrollHeight + "px";
+        }
+      });
+    }
+  </script>
+
+
+
+</body></html>
