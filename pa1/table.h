@@ -42,6 +42,13 @@ public:
 	// For the purpose of debugging, you can implement this function to print out the table
 	void print() const;
 
+	int getNumAttrs() const { return numAttrs; }
+
+	int getNumEntries() const { return numEntries; }
+
+	const string& getAttribute(int index) const { return attrs[index]; }
+
+	const string& getEntry(int entryIndex, int attrIndex) const { return entries[entryIndex][attrIndex]; }
 	// Conversion from Table to Intermediate needs to access private members of Table objects
 	// By declaring Intermediate as a friend class of Table, Intermediate can access the private members of Table
 	friend class Intermediate;

@@ -1,0 +1,107 @@
+Test Table 01
+numAttrs: 0 numEntries: 0
+true
+numAttrs: 1 numEntries: 0
+true
+numAttrs: 2 numEntries: 0
+A
+B
+
+Test Table 02
+true true true true true
+numAttrs: 5 numEntries: 0
+false false true
+numAttrs: 6 numEntries: 0
+A B F C D E
+false false true
+numAttrs: 5 numEntries: 0
+A B C D E
+true true true true true
+numAttrs: 0 numEntries: 0
+
+Test Table 03
+numAttrs: 3 numEntries: 0
+true
+numAttrs: 3 numEntries: 1
+true
+numAttrs: 3 numEntries: 2
+A1 B1 C1
+A2 B2 C2
+
+Test Table 04
+numAttrs: 3 numEntries: 4
+false false true
+numAttrs: 3 numEntries: 5
+A1 B1 C1
+A2 B2 C2
+A5 B5 C5
+A3 B3 C3
+A4 B4 C4
+false false true
+numAttrs: 3 numEntries: 4
+A1 B1 C1
+A2 B2 C2
+A3 B3 C3
+A4 B4 C4
+
+Test Table 05
+numAttrs: 1 numEntries: 4
+true
+numAttrs: 2 numEntries: 4
+A B
+A1 
+A2 
+A3 
+A4 
+true
+numAttrs: 3 numEntries: 4
+A B C
+A1  DEFAULT
+A2  DEFAULT
+A3  DEFAULT
+A4  DEFAULT
+
+Test Table 06
+numAttrs: 3 numEntries: 4
+false false true
+numAttrs: 3 numEntries: 3
+A B C
+A1 B1 C1
+A2 B2 C2
+A4 B4 C4
+true true true
+numAttrs: 3 numEntries: 0
+A B C
+
+Test Table 07
+numAttrs: 3 numEntries: 4
+true
+numAttrs: 2 numEntries: 4
+A B
+A1 B1
+A2 B2
+A3 B3
+true
+numAttrs: 1 numEntries: 4
+A
+A1
+A2
+A3
+true
+numAttrs: 0 numEntries: 0
+
+Test Table 08
+false
+false
+true
+numAttrs: 3 numEntries: 0
+numAttrs: 3 numEntries: 1
+true
+numAttrs: 3 numEntries: 2
+A B C
+A1 B1 C1
+A2 B2 C2
+numAttrs: 3 numEntries: 1
+A B C
+A2 B2 C2
+
