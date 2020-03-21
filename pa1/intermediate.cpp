@@ -108,7 +108,7 @@ void simple_sort(string* array[],int attr_index,enum order order,int array_size)
 void simple_sort(string* array[],int attr_index,enum order order,int array_size){
 	if(order==ASCENDING){
 		for(int i=0;i<array_size;i++){//第i趟
-			for(int j=0;j<array_size;j++){//第j个元素
+			for(int j=0;j<array_size-1;j++){//第j个元素
 				if(array[j][attr_index].compare(array[j+1][attr_index])>0){
 					string* temp=array[j];
 					array[j]=array[j+1];
@@ -119,7 +119,7 @@ void simple_sort(string* array[],int attr_index,enum order order,int array_size)
 	}
 	if(order==DESCENDING){
 		for(int i=0;i<array_size;i++){//第i趟
-			for(int j=0;j<array_size;j++){//第j个元素
+			for(int j=0;j<array_size-1;j++){//第j个元素
 				if(array[j][attr_index].compare(array[j+1][attr_index])<0){
 					string* temp=array[j];
 					array[j]=array[j+1];
@@ -180,6 +180,7 @@ Intermediate::~Intermediate(){
 		head = nullptr;
 		tail = nullptr;
 	}
+
 }
 
 
@@ -316,8 +317,11 @@ Intermediate& Intermediate::orderBy(const string &attr, enum order order){
 		current_node = current_node->next;
 		++i;
 	}
+
 	//sort array
+
 	simple_sort(array,attr_index,order,numEntries);
+
 	//把array的值赋回去
 	i=0;
 	current_node = head;

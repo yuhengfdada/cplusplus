@@ -1,4 +1,4 @@
-/*
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -272,6 +272,7 @@ void _test_intermediate()
 
 	cout << endl;
 
+
 	cout << "Query 2. Prints the Course Name and Course Code of the first 5 rows" << endl;
 
 	string selector[] = {"Course Name", "Course Code"};
@@ -279,13 +280,16 @@ void _test_intermediate()
 
 	cout << endl;
 
+
 	cout << "Query 3. rints the Department, Course Name and Credits of the courses that have \"Analysis\" in their Course Name " << endl;
 	cout << "ordered by increasing Credits then decreasing Department" << endl;
 	
 	string selector2[] = {"Department", "Course Name", "Credits"};
 	courses.query().where("Course Name", CONTAINS, "Analysis").orderBy("Department", DESCENDING).orderBy("Credits", ASCENDING).select(selector2, 3);
-
+	//courses.query().orderBy("Department", DESCENDING).select(selector2, 3);
 	cout << endl;
+
+
 
 	cout << "Query 4. Updates the Credit of the courses that have \"Programming\" in their Course Name to 5" << endl;
 	
@@ -293,11 +297,13 @@ void _test_intermediate()
 
 	cout << endl;
 
+
 	cout << "Query 5. Prints the courses with 5 credits" << endl;
 	
 	courses.query().where("Credits", EQ, "5").select();
 
 	cout << endl;
+
 }
 
 int main()
@@ -308,4 +314,4 @@ int main()
 
 	return 0;
 }
-*/
+

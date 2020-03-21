@@ -1,3 +1,4 @@
+/*
 #include <iostream>
 #include <string>
 
@@ -361,6 +362,7 @@ _test_table08()
 	a->addAttribute("B");
 	a->addAttribute("C");
 
+
 	b->addAttribute("A");
 	b->addAttribute("B");
 	b->addAttribute("C");
@@ -420,6 +422,7 @@ _test_table08()
 int
 main()
 {
+
 	_test_table01();
 
 	_test_table02();
@@ -438,3 +441,4 @@ main()
 
 	return 0;
 }
+*/

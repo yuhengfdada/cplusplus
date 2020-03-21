@@ -46,10 +46,10 @@ Table::Table(const Table &another){
 
 //Destructor
 Table::~Table(){
-	if(attrs) delete attrs;
+	if(attrs) delete [] attrs;
 	if(entries){
 		for(int i=0;i<numEntries;++i){
-				delete entries[i];
+			if(entries[i])	delete [] entries[i];
 		}
 		delete [] entries;
 	}
@@ -72,7 +72,7 @@ bool Table::addAttribute(const string &attr, int index, const string &default_va
 		if(j==index) {temp_attrs[j] = attr;}
 		if(j>index) {temp_attrs[j] = attrs[j-1];}
 	}
-	if(attrs) delete attrs; //第一次delete
+	if(attrs) delete [] attrs; //第一次delete
 	attrs = temp_attrs;
 
 	//只有原来有entries的时候需要更新entries
@@ -88,7 +88,7 @@ bool Table::addAttribute(const string &attr, int index, const string &default_va
 		}
 		//delete 原来的entries
 		for(int i=0;i<numEntries;++i){
-				delete entries[i]; //第二次delete
+				delete [] entries[i]; //第二次delete
 		}
 		delete [] entries;  //第三次delete
 		//更新entries
@@ -113,18 +113,28 @@ bool Table::addEntry(const string *entry, int index){
 	string** temp_entries = new string*[numEntries+1];
 	for(int i=0;i<numEntries+1;++i){
 		temp_entries[i] = new string[numAttrs];
-		if(i<index) {temp_entries[i] = entries[i];}
+		if(i<index) {
+			//temp_entries[i] = entries[i];
+			for(int j=0;j<numAttrs;++j){
+				temp_entries[i][j] = entries[i][j];
+			}
+		}
 		if(i==index) {
 			for(int j=0;j<numAttrs;++j){
 				temp_entries[i][j] = entry[j]; //不能直接把entry赋到string数组里,要一个一个来
 			}
 		}
-		if(i>index) {temp_entries[i] = entries[i-1];}
+		if(i>index) {
+			//temp_entries[i] = entries[i-1];
+			for(int j=0;j<numAttrs;++j){
+				temp_entries[i][j] = entries[i-1][j];
+			}
+		}
 	}
 	//new了两次，所以delete两次（注意old entries开始可能为nullptr）
 	if(entries){
 		for(int i=0;i<numEntries;++i){
-				delete entries[i];
+				delete [] entries[i];
 		}
 		delete [] entries;
 	}
@@ -144,11 +154,11 @@ bool Table::deleteAttribute(int index){
 	if(index<0 || index>numAttrs-1) return false; //原来就没有attribute也return false
 	//原来只有一个attribute，删了之后全删
 	if(numAttrs==1){
-		delete attrs;
+		delete [] attrs;
 		attrs = nullptr;
 		if(entries){
 			for(int i=0;i<numEntries;++i){
-				delete entries[i];
+				delete [] entries[i];
 			}
 			delete [] entries;
 			entries = nullptr;
@@ -164,7 +174,7 @@ bool Table::deleteAttribute(int index){
 		if(j<index) {temp_attrs[j] = attrs[j];}
 		if(j>=index) {temp_attrs[j] = attrs[j+1];}
 	}
-	delete attrs; //第一次delete
+	delete [] attrs; //第一次delete
 	attrs = temp_attrs;
 
 	//只有原来有entries的时候需要更新entries
@@ -179,7 +189,7 @@ bool Table::deleteAttribute(int index){
 		}
 		//delete 原来的entries
 		for(int i=0;i<numEntries;++i){
-				delete entries[i]; //第二次delete
+				delete [] entries[i]; //第二次delete
 		}
 		delete [] entries;  //第三次delete
 		//更新entries
@@ -199,7 +209,7 @@ bool Table::deleteEntry(int index){
 	if(index<0 || index>numEntries-1) return false;//原来就没有entry也return false
 	if(numEntries==1){//如果只有一个就把entries设成nullptr
 		for(int i=0;i<numEntries;++i){
-			delete entries[i];
+			delete [] entries[i];
 		}
 		delete [] entries;
 		entries = nullptr;
@@ -211,12 +221,21 @@ bool Table::deleteEntry(int index){
 	string** temp_entries = new string*[numEntries-1];
 	for(int i=0;i<numEntries-1;++i){
 		temp_entries[i] = new string[numAttrs];
-		if(i<index) {temp_entries[i] = entries[i];}
-		if(i>=index) {temp_entries[i] = entries[i+1];}
+		if(i<index) {
+			for(int j=0;j<numAttrs;++j){
+				temp_entries[i][j] = entries[i][j];
+			}
+		}
+		if(i>=index) {
+			//temp_entries[i] = entries[i+1];
+			for(int j=0;j<numAttrs;++j){
+				temp_entries[i][j] = entries[i+1][j];
+			}
+		}
 	}
 	//new了两次，所以delete两次
 	for(int i=0;i<numEntries;++i){
-		delete entries[i];
+		delete [] entries[i];
 	}
 	delete [] entries;
 	entries = temp_entries;
@@ -243,16 +262,20 @@ bool Table::append(const Table &another){
 	string** temp_entries = new string*[numEntries+another.numEntries];
 	for(int i=0;i<numEntries;++i){
 		temp_entries[i] = new string[numAttrs];
-		temp_entries[i] = entries[i];
+		for(int j=0;j<numAttrs;++j){
+			temp_entries[i][j] = entries[i][j];
+		}
 	}
 	for(int j=numEntries;j<numEntries+another.numEntries;++j){
 		temp_entries[j] = new string[numAttrs];
-		temp_entries[j] = another.entries[j-numEntries];
+		for(int i=0;i<numAttrs;++i){
+			temp_entries[j][i] = another.entries[j-numEntries][i];
+		}
 	}
 	//delete原来的entries（原来是空的话就不用）
 	if(entries){
 		for(int i=0;i<numEntries;++i){
-				delete entries[i];
+				delete [] entries[i];
 		}
 		delete [] entries;
 	}
