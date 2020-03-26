@@ -216,7 +216,8 @@ Intermediate& Intermediate::where(const string &attr, enum compare mode, const s
 						current_node = next;
 					}
 					//删空了
-					else tail=nullptr;
+					else {tail=nullptr;
+					current_node = next;}
 				}
 				else if(current_node==tail){ //这里是不会出现删空的情况的
 					EntryNode* prev = current_node->prev;
@@ -259,7 +260,8 @@ Intermediate& Intermediate::where(const string &attr, enum compare mode, const s
 						current_node = next;
 					}
 					//删空了
-					else tail=nullptr;
+					else {tail=nullptr;
+					current_node = next;}
 				}
 				else if(current_node==tail){ //这里是不会出现删空的情况的
 					EntryNode* prev = current_node->prev;

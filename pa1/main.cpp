@@ -268,6 +268,7 @@ void _test_intermediate()
 	courses.append(math);
 
 	cout << "Query 1. Prints all courses" << endl;
+	courses.query().traversal();
 	courses.query().select();
 
 	cout << endl;
@@ -276,7 +277,8 @@ void _test_intermediate()
 	cout << "Query 2. Prints the Course Name and Course Code of the first 5 rows" << endl;
 
 	string selector[] = {"Course Name", "Course Code"};
-	courses.query().limit(5).select(selector, 2);
+	courses.query().limit(1).traversal();
+	courses.query().limit(1).select(selector, 2);
 
 	cout << endl;
 
@@ -285,6 +287,8 @@ void _test_intermediate()
 	cout << "ordered by increasing Credits then decreasing Department" << endl;
 	
 	string selector2[] = {"Department", "Course Name", "Credits"};
+	//courses.query().where("Course Name", CONTAINS, "Ahahaha").select(selector2, 3);//.orderBy("Department", DESCENDING).orderBy("Credits", ASCENDING)
+	courses.query().where("Course Name", CONTAINS, "Analysis").orderBy("Department", DESCENDING).orderBy("Credits", ASCENDING).traversal();
 	courses.query().where("Course Name", CONTAINS, "Analysis").orderBy("Department", DESCENDING).orderBy("Credits", ASCENDING).select(selector2, 3);
 	//courses.query().orderBy("Department", DESCENDING).select(selector2, 3);
 	cout << endl;

@@ -44,6 +44,21 @@ public:
 	// TODO
 	Intermediate& limit(unsigned int limit);
 
+	void traversal(){
+		EntryNode* current = head;
+		while(current){
+			cout << current->entry[0] <<endl;
+			current = current->next;
+		}
+		cout << "正序遍历完了" << endl;
+		current = tail;
+		while(current){
+			cout <<current->entry[0] << endl;
+			current = current->prev;
+		}
+		cout << "反向遍历完了" << endl;
+	}
+
 	// TODO
 	void update(const string &attr, const string &new_value) const;
 
