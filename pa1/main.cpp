@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -318,4 +318,44 @@ int main()
 
 	return 0;
 }
+*/
+#include <iostream>
+#include <fstream>
+#include <string>
 
+#include "table.h"
+#include "intermediate.h"
+
+using namespace std;
+
+int main(){
+string attr1 = "Attribute1";
+	string attr2 = "Attribute2";
+
+	string value00 = "Value00";
+	string value01 = "Value01";
+	string value10 = "Value10";
+	string value11 = "Value11";
+
+	string new_value = "new_value";
+
+	Table *a = new Table;
+	a->numAttrs = 2;
+	a->numEntries = 2;
+	a->attrs = new string[2];
+	a->attrs[0] = attr1;
+	a->attrs[1] = attr2;
+	a->entries = new string*[2];
+	a->entries[0] = new string[2];
+	a->entries[1] = new string[2];
+	a->entries[0][0] = value00;
+	a->entries[0][1] = value01;
+	a->entries[1][0] = value10;
+	a->entries[1][1] = value11;
+
+	Intermediate *i = new Intermediate {*a};
+
+	i->update(attr1, new_value);
+	//cout << a->entries[0][0] <<endl;
+	cout << i->head->entry[0] <<endl;
+}

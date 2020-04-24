@@ -392,10 +392,12 @@ void Intermediate::update(const string &attr, const string &new_value) const{
 		attr_index = i;
 	}
 	if(!flag) return;
+	cout << "开始update" << endl;
 	//如果存在，遍历链表and update字段"attr"
 	EntryNode* current_node = head;
 	while(current_node){
 		current_node->entry[attr_index] = new_value;
+		cout << current_node->entry[0] << endl;
 		current_node = current_node->next;
 	}
 }

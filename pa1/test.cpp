@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <string>
 
@@ -368,6 +368,7 @@ _test_table08()
 	b->addAttribute("C");
 	b->addAttribute("D");
 
+
 	// Different attributes. Cannot append
 	cout << boolalpha << a->append(*b) << endl;
 
@@ -387,6 +388,10 @@ _test_table08()
 
 	_print_dimensions(a);
 
+	cout << boolalpha << a->append(*a) << endl;
+
+	_print_dimensions(a);
+
 	string entry1[] = {"A1", "B1", "C1"};
 	string entry2[] = {"A2", "B2", "C2"};
 
@@ -399,11 +404,15 @@ _test_table08()
 
 	_print_dimensions(a);
 
+	cout << boolalpha << a->append(*a) << endl;
+
+	_print_dimensions(a);
 	cout << a->getAttribute(0) << space << a->getAttribute(1) << space << a->getAttribute(2) << endl;
 
 	cout << a->getEntry(0, 0) << space << a->getEntry(0, 1) << space << a->getEntry(0, 2) << endl;
 	cout << a->getEntry(1, 0) << space << a->getEntry(1, 1) << space << a->getEntry(1, 2) << endl;
-
+	cout << a->getEntry(2, 0) << space << a->getEntry(2, 1) << space << a->getEntry(2, 2) << endl;
+	cout << a->getEntry(3, 0) << space << a->getEntry(3, 1) << space << a->getEntry(3, 2) << endl;
 	_print_dimensions(d);
 
 	cout << d->getAttribute(0) << space << d->getAttribute(1) << space << d->getAttribute(2) << endl;
@@ -442,3 +451,4 @@ main()
 	return 0;
 }
 
+*/

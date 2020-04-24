@@ -53,7 +53,7 @@ public:
 	// By declaring Intermediate as a friend class of Table, Intermediate can access the private members of Table
 	friend class Intermediate;
 
-private:
+
 	// 1D array of attributes
 	// When there are no attributes, this must be set to nullptr
 	string *attrs;

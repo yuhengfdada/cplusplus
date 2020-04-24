@@ -65,7 +65,7 @@ public:
 	// TODO
 	void select(const string *attrs = nullptr, int numAttrs = 0) const;
 
-private:
+
 	// Pointer to the 1D array of attributes
 	// Not owned by intermediate
 	const string *attrs;
